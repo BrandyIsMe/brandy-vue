@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const original = {
+        data: {
+          age: 17,
+        },
+        result: {
+          user: "张三",
+        },
+        num: 10,
+      };
+
+      const reactive = new Proxy(original, {
+        get(target, key) {
+            const res = Reflect.get(target, key)
+          console.log(`有人正在读取${key}, 我把${res}给他了`);
+          return res;
+        },
+        set(target, key, value) {
+          console.log(`有人正在修改${key}为${value}`);
+          return Reflect.set(target, key, value);
+        },
+      });
+    </script>
+  </body>
+</html>
